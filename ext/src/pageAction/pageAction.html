@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<script src="../browser-polyfill.min.js"></script>,
+	<script src="../background/constants.js"></script>
+	<script src="../background/helpers.js"></script>
+	<script src="pageAction.js"></script>
+	<link href="pageAction.css" type="text/css" rel="stylesheet">
+	<title>Stack Exchange Post Watcher</title>
+</head>
+
+<body>
+	<div>
+		<h1>
+			Stack Exchange Post Watcher
+			<img class="logo" src="../../icons/logo-128.png" />
+		</h1>
+		<div id="auth">
+			You need to get an access token to use this extension!
+			<br><br>
+			<button id="getAccessToken">Get access token</button>
+		</div>
+		<div id="posts" style="display:none">
+			<h3 id="posts-header">Watched Posts</h3>
+		</div>
+	</div>
+</body>
+
+</html>

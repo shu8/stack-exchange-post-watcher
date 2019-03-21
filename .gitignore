@@ -1,0 +1,14 @@
+/*
+!LICENSE
+!.gitignore
+!.eslintrc.json
+!ext/
+!ext/*
+ext/.vs
+ext/.vs/
+ext/.vs/*
+ext/icons/*
+!ext/icons/*.png
+!ext/src
+!ext/src/
+!ext/src/*

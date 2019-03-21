@@ -1,0 +1,95 @@
+body {
+    padding: 10px;
+    width: 700px;
+    max-height: 600px;
+    overflow-y: auto;
+    font-family: Helvetica, Ubuntu, Arial, sans-serif;
+    font-size: 14px;
+}
+
+.logo {
+    height: 100px;
+    float: right;
+}
+
+.site-watched-posts-container {
+    margin-bottom: 20px;
+}
+
+.site-header-site-name {
+    height: 30px;
+    display: block;
+    line-height: 30px;
+}
+
+.site-header-favicon {
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
+    float: left;
+    margin-right: 5px;
+}
+
+.watched-post-entry {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgb(221, 221, 221);
+    padding: 10px;
+    margin-left: -45px;
+    border-radius: 5px;
+}
+
+.watched-post-entry .watch-option {
+    margin-right: 5px;
+    border: 0.5px dashed black;
+    padding: 6px;
+    border-radius: 4px;
+    margin: auto;
+    margin-right: 5px;
+}
+
+.watched-post-entry .watch-option.unread {
+    font-weight: bold;
+}
+
+.watched-post-entry:hover {
+    background-color: lightgoldenrodyellow !important;
+}
+
+.watched-post-entry::before {
+    content: "\a0";
+    height: 10px;
+    width: 10px;
+    margin-right: 5px;
+}
+
+.watched-post-entry.unread::before {
+    border-radius: 100%;
+    background-color: blue;
+}
+
+li.watched-post-entry:nth-of-type(odd) {
+    background-color: whitesmoke;
+}
+
+.watched-post-entry .post-title {
+    max-width: 30%;
+    margin-right: 10px;
+    color: #0000EE;
+}
+
+.watched-post-actions .action {
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.watched-post-watch-options {
+    text-align: center;
+    display: flex;
+    max-width: 60%;
+}
+
+.watched-post-actions {
+    margin-left: auto;
+    line-height: 28px;
+}
