@@ -1,1 +1,4 @@
 theme: jekyll-theme-minimal
+title: Stack Exchange Post Watcher
+description: Watch questions and answers on the Stack Exchange network of sites to find out when they are edited, commented on, answered, and more!
+show_downloads: false
