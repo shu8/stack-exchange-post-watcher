@@ -1,6 +1,6 @@
 {
   "name": "Stack Exchange Post Watcher",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "manifest_version": 2,
   "description": "Watch questions & answers on the Stack Exchange network of sites to find out when they are edited, commented on, answered, and more!",
   "homepage_url": "http://github.com/shu8",
