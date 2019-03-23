@@ -7,6 +7,7 @@
     <title>Stack Exchange Post Watcher</title>
 
     <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="/stack-exchange-post-watcher/assets/css/style.css">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -20,14 +21,19 @@
             <p class="view"><a href="https://github.com/shu8/stack-exchange-post-watcher">View the Project on GitHub <small></small></a></p>
         </header>
         <section>
-            <p>Stack Exchange Post Watcher</p>
+            <p>
+                This site is used to get your access token for use in the <a href="https://github.com/shu8/stack-exchange-post-watcher">Chrome and Firefox</a> extensions.
+            </p>
 
-            <div style="display: none; background-color: beige; padding: 10px; border-radius: 10px;" id='access-token'>
+            <div style="display: none; background-color: beige; padding: 10px; border-radius: 10px; width: 100%; text-align: center;" id='access-token'>
                 <hr>
                 <h3><a id="acccess-token" class="anchor" href="#access-token" aria-hidden="true"><span class="octicon octicon-link"></span></a>Your access token</h3>
 
                 <pre id='token'></pre>
-                <p>Your access token has been saved!</p>
+                <p>
+                    Your access token has been saved!
+                    <strong>You can close this window now</strong>
+                </p>
                 <script>
                     if (window.location.href.split('=').length != 1) {
                         document.getElementById('access-token').style.display = 'inline-block';
