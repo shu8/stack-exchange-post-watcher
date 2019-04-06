@@ -32,9 +32,10 @@ body {
 
 .watched-post-entry {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     border-bottom: 1px solid rgb(221, 221, 221);
-    padding: 10px;
+    padding: 15px;
     margin-left: -45px;
     border-radius: 5px;
 }
@@ -56,16 +57,19 @@ body {
     background-color: lightgoldenrodyellow !important;
 }
 
-.watched-post-entry::before {
-    content: "\a0";
-    height: 10px;
-    width: 10px;
+.unread-dot {
+    height: 12px;
+    width: 12px;
     margin-right: 5px;
-}
-
-.watched-post-entry.unread::before {
     border-radius: 100%;
     background-color: blue;
+    float: left;
+    /* Default to not shown; the next rule shows if parent post element is 'unread' */
+    display: none;
+}
+
+.watched-post-entry.unread .unread-dot {
+    display: block;
 }
 
 li.watched-post-entry:nth-of-type(odd) {
@@ -73,23 +77,25 @@ li.watched-post-entry:nth-of-type(odd) {
 }
 
 .watched-post-entry .post-title {
-    max-width: 30%;
-    margin-right: 10px;
+    float: left;
+    max-width: 70%;
     color: #0000EE;
 }
 
-.watched-post-actions .action {
+.watched-post-title-actions .action {
     cursor: pointer;
     margin-right: 5px;
+    font-size: 13px;
+    font-style: italic;
+    float: right;
+}
+
+.watched-post-title-actions .action+.action {
+    border-right: 1px solid black;
+    padding-right: 5px;
 }
 
 .watched-post-watch-options {
-    text-align: center;
-    display: flex;
-    max-width: 60%;
+    margin-top: 10px;
 }
 
-.watched-post-actions {
-    margin-left: auto;
-    line-height: 28px;
-}

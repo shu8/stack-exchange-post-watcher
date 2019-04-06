@@ -31,7 +31,10 @@ function showWatchedPosts() {
 
         // The '/q' or '/a' slug works for any type of post so don't need to check for postType
         const postTitleAnchor = SEPostWatcher.helpers.newElement('a', {
-          href: `https://${post.sitename}/q/${post.postId}`, innerText: post.title, className: 'post-title', target: '_blank',
+          href: `https://${post.sitename}/q/${post.postId}`,
+          innerText: `${post.postType === 'question' ? 'Q' : 'A'}: ${post.title}`,
+          className: 'post-title',
+          target: '_blank',
         });
 
         const watchOptions = post.watchOptions.map(w => SEPostWatcher.WATCH_TYPES[post.postType].find(t => t.name === w));
@@ -51,13 +54,13 @@ function showWatchedPosts() {
           return SEPostWatcher.helpers.newElement('span', { className, innerText: w.description, title });
         });
 
-        const watchedPostOptions = SEPostWatcher.helpers.newElement('span', { className: 'watched-post-watch-options' });
+        const watchedPostOptions = SEPostWatcher.helpers.newElement('div', { className: 'watched-post-watch-options' });
         watchOptionSpans.forEach(span => watchedPostOptions.appendChild(span));
 
-        const actionsSpan = SEPostWatcher.helpers.newElement('span', { className: 'watched-post-actions' });
+        const titleActionsDiv = SEPostWatcher.helpers.newElement('div', { className: 'watched-post-title-actions' });
 
         const deleteWatchedPostSpan = SEPostWatcher.helpers.newElement('span', {
-          innerText: 'Stop', className: 'stop-watching-post action', title: 'stop watching post',
+          innerText: 'stop watching', className: 'stop-watching-post action',
         });
         deleteWatchedPostSpan.onclick = function () {
           browser.runtime.sendMessage({ action: 'STOP_WATCHING_POST', postId: post.postId, sitename: post.sitename });
@@ -65,7 +68,7 @@ function showWatchedPosts() {
         };
 
         const markAsReadSpan = SEPostWatcher.helpers.newElement('span', {
-          innerHTML: '&#10003;', className: 'mark-watched-post-read action', title: 'mark as read',
+          innerHTML: 'mark as read', className: 'mark-watched-post-read action',
         });
         markAsReadSpan.onclick = function () {
           browser.runtime.sendMessage({ action: 'MARK_POST_AS_READ', postId: post.postId, sitename: post.sitename });
@@ -73,12 +76,14 @@ function showWatchedPosts() {
           watchOptionSpans.forEach(span => span.classList.remove('unread'));
         };
 
-        actionsSpan.appendChild(markAsReadSpan);
-        actionsSpan.appendChild(deleteWatchedPostSpan);
+        const unreadDot = SEPostWatcher.helpers.newElement('span', { className: 'unread-dot', innerHTML: '&nbsp;' });
+        titleActionsDiv.appendChild(unreadDot);
+        titleActionsDiv.appendChild(postTitleAnchor);
+        titleActionsDiv.appendChild(markAsReadSpan);
+        titleActionsDiv.appendChild(deleteWatchedPostSpan);
 
-        postLi.appendChild(postTitleAnchor);
+        postLi.appendChild(titleActionsDiv);
         postLi.appendChild(watchedPostOptions);
-        postLi.appendChild(actionsSpan);
 
         document.getElementById(post.sitename).appendChild(postLi);
       });
