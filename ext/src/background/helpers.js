@@ -4,7 +4,7 @@
   SEPostWatcher.helpers = {
     newElement: function (type, properties) {
       const el = document.createElement(type);
-      Object.keys(properties).forEach(p => el[p] = properties[p]);
+      if (properties) Object.keys(properties).forEach(p => el[p] = properties[p]);
       return el;
     },
 
