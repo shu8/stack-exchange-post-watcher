@@ -21,7 +21,7 @@ function chooseWatchTypesDialogEnterHandler(dialog) {
 
 function showChooseWatchTypesDialog(postId, postType) {
   const dialog = document.createElement('dialog');
-  if (dialogPolyfill) dialogPolyfill.registerDialog(dialog);
+  if (typeof dialogPolyfill !== 'undefined') dialogPolyfill.registerDialog(dialog);
 
   const intro = document.createElement('div');
   intro.innerText = 'Please choose the event(s) you want to be notified for:';
