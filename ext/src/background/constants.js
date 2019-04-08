@@ -8,11 +8,15 @@
       { name: 'state', description: 'State changes', apiEndpoint: 'questions/{ids}', apiField: 'closed_reason', apiFieldOptional: true },
       { name: 'newAnswer', description: 'New answers', apiEndpoint: 'questions/{ids}', apiField: 'answer_count' },
       { name: 'voteChange', description: 'Vote count changes', apiEndpoint: 'posts/{ids}', apiField: 'score' },
+      // 'delete' is special as we're actually looking for the presence of a post being in the API response
+      { name: 'delete', description: 'Deletion', apiEndpoint: 'posts/{ids}', apiField: 'score' },
     ],
     answer: [
       { name: 'edit', description: 'Edits', apiEndpoint: 'posts/{ids}', apiField: 'last_edit_date', apiFieldOptional: true },
       { name: 'newComment', description: 'New comments', apiEndpoint: 'posts/{ids}', apiField: 'comment_count' },
       { name: 'voteChange', description: 'Vote count changes', apiEndpoint: 'posts/{ids}', apiField: 'score' },
+      // 'delete' is special as we're actually looking for the presence of a post being in the API response
+      { name: 'delete', description: 'Deletion', apiEndpoint: 'posts/{ids}', apiField: 'score' },
     ],
   };
 

@@ -47,6 +47,23 @@
       ids: posts.map(post => post.postId),
     });
 
+    // Special case: check for post deletions
+    if (items.length !== posts.length) {
+      const postsWithDeleteWatchOption = posts.filter(p => p.watchOptions.includes('delete'));
+      postsWithDeleteWatchOption.forEach(post => {
+        if (!items.find(item => item.post_id === +post.post_id)) {
+          // `post` was deleted
+          console.log('[ChangeDetector.js] Post deleted!', post.postId);
+          post.unreadChanges.push({
+            name: 'delete',
+            previous: undefined,
+            new: 'deleted',
+          });
+          post.lastChecked = new Date().getTime();
+        }
+      });
+    }
+
     items.forEach(item => {
       // Get the WatchedPost object for the current post in the API's response
       const post = posts.find(p => (item.post_id ? +p.postId === item.post_id : +p.postId === item.question_id));
@@ -56,6 +73,9 @@
       // In all cases, update the WatchedPost's postDetailsAtLastCheck object and lastChecked time with the data
       // we got from the API so we can use this to compare to later.
       post.watchOptions.forEach(watchOption => {
+        // 'delete' special case is handled above, so skip here
+        if (watchOption === 'delete') return;
+
         // Get the API field we want to check for changes that belongs to this watch type and endpoint
         const watchType = SEPostWatcher.UNIQUE_WATCH_TYPES.find(
           type => type.name === watchOption && type.apiEndpoint === endpoint,
