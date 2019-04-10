@@ -29,8 +29,8 @@ If you would like to help by submitting a pull request for a bug fix or new feat
 
 __Chrome__:
 
-![Chrome watched posts](https://lh3.googleusercontent.com/hgVbtzIlDzvoepjzY4-xMAKUoSrQM10Joo_qGpLrjNqOqmy8UYejSzWhs5Zw9oF-P7If8u8K=w640-h400-e365)
+![Chrome watched posts](https://lh3.googleusercontent.com/vE7grUKtSdoAueFM8oZF0Eoz2TypHOZLSFgfgiqkzSE5_dA6K32UOnc-cT0A2oykGskQUqZMbQ=w640-h400-e365)
 
 __Firefox__:
 
-![Firefox watch post dialog](https://addons.cdn.mozilla.net/user-media/previews/full/216/216784.png)
+![Firefox watch post dialog](https://addons.cdn.mozilla.net/user-media/previews/full/217/217727.png?modified=1554916019)
