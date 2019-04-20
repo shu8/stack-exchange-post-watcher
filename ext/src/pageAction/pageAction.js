@@ -26,8 +26,16 @@ function showWatchedPosts() {
       watchedPosts.forEach(post => {
         if (!document.getElementById(post.sitename)) createSiteContainer(siteData, post);
         const postLi = SEPostWatcher.helpers.newElement('li', { className: 'watched-post-entry' });
-
         if (post.unreadChanges.length) postLi.classList.add('unread');
+        if (post.dateAdded) postLi.setAttribute('data-date-added', post.dateAdded);
+        postLi.setAttribute('data-title', post.title);
+
+        const addedDaysAgo = Math.floor((new Date().getTime() - post.dateAdded) / 1000 / 60 / 60 / 24);
+        const dateAddedSpan = SEPostWatcher.helpers.newElement('span', {
+          className: 'watched-post-added-date',
+          innerText: `added ${addedDaysAgo === 0 ? 'today' : `${addedDaysAgo} days ago`}`,
+          title: new Date(post.dateAdded).toLocaleString(),
+        });
 
         // The '/q' or '/a' slug works for any type of post so don't need to check for postType
         const postTitleAnchor = SEPostWatcher.helpers.newElement('a', {
@@ -77,6 +85,7 @@ function showWatchedPosts() {
         };
 
         const unreadDot = SEPostWatcher.helpers.newElement('span', { className: 'unread-dot', innerHTML: '&nbsp;' });
+        if (post.dateAdded) titleActionsDiv.appendChild(dateAddedSpan);
         titleActionsDiv.appendChild(unreadDot);
         titleActionsDiv.appendChild(postTitleAnchor);
         titleActionsDiv.appendChild(markAsReadSpan);

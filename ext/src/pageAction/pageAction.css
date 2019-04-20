@@ -99,3 +99,10 @@ li.watched-post-entry:nth-of-type(odd) {
     margin-top: 10px;
 }
 
+.watched-post-added-date {
+    text-align: center;
+    display: block;
+    font-size: 13px;
+    font-style: italic;
+    margin-bottom: 5px;
+}
