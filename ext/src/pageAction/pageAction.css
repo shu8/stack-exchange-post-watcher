@@ -1,7 +1,6 @@
 body {
     padding: 10px;
     width: 700px;
-    max-height: 600px;
     overflow-y: auto;
     font-family: Helvetica, Ubuntu, Arial, sans-serif;
     font-size: 14px;
