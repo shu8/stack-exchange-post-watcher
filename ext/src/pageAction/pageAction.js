@@ -23,15 +23,16 @@ function getDaysSinceAdded(dateAdded) {
   now.setHours(0, 0, 0, 0);
 
   const daysSinceAdded = Math.floor((now.getTime() - dateAdded.getTime()) / 1000 / 60 / 60 / 24);
-  console.log(daysSinceAdded);
   return daysSinceAdded;
 }
 
-function showWatchedPosts() {
+function showWatchedPosts(sortBy = 'title') {
+  [...document.querySelectorAll('.site-watched-posts-container ul li')].forEach(el => el.remove());
   document.getElementById('auth').style.display = 'none';
   document.getElementById('posts').style.display = 'block';
   browser.runtime.sendMessage({ action: 'GET_SITE_DATA' }).then(siteData => {
     browser.runtime.sendMessage({ action: 'GET_WATCHED_POSTS' }).then(watchedPosts => {
+      watchedPosts.sort((a, b) => sortBy === 'title' ? a.title.localeCompare(b.title) : b[sortBy] - a[sortBy]);
       console.log(watchedPosts);
       if (!watchedPosts || !watchedPosts.length) document.getElementById('posts-header').innerText = 'No Watched Posts';
 
@@ -126,6 +127,11 @@ function authorise() {
 }
 
 browser.runtime.sendMessage({ action: 'GET_ACCESS_TOKEN' }).then(accessToken => {
-  if (accessToken) showWatchedPosts();
-  else authorise();
+  if (accessToken) {
+    showWatchedPosts();
+    document.getElementById('sortByTitle').addEventListener('click', () => showWatchedPosts('title'));
+    document.getElementById('sortByDateAdded').addEventListener('click', () => showWatchedPosts('dateAdded'));
+  } else {
+    authorise();
+  }
 });
