@@ -54,6 +54,7 @@
       this.lastChecked = new Date().getTime();
       this.postDetailsAtLastCheck = {};
       this.unreadChanges = [];
+      this.dateAdded = new Date().getTime();
     }
   };
 

@@ -52,3 +52,11 @@ dialog.fixed {
     top: 50%;
     transform: translate(0, -50%);
 }
+
+dialog .watch-btn {
+    float: left;
+}
+
+dialog .stop-watching-btn {
+    float: right;
+}

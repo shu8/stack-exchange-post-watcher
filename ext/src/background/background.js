@@ -111,6 +111,14 @@
       await SEPostWatcher.getCurrentDetailsForPost(post);
       browser.storage.sync.set({ watchedPosts: SEPostWatcher.watchedPosts });
 
+    } else if (request.action === 'UDPATE_POST') {
+      const post = new SEPostWatcher.WatchedPost(request.postId, request.postType, request.sitename, request.title, request.watchOptions);
+      console.log('[background.js] Updating post to', post);
+      const index = SEPostWatcher.watchedPosts.findIndex(p => p.postId === request.postId && p.sitename === request.sitename);
+      if (index !== -1) SEPostWatcher.watchedPosts[index] = post;
+      browser.storage.sync.set({ watchedPosts: SEPostWatcher.watchedPosts });
+      return new Promise(resolve => resolve(post));
+
     } else if (request.action === 'GET_WATCHED_POSTS') {
       console.log('[background.js] Returning watched posts', SEPostWatcher.watchedPosts);
       return new Promise(resolve => resolve(SEPostWatcher.watchedPosts));

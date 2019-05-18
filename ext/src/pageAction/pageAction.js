@@ -15,19 +15,34 @@ function createSiteContainer(siteData, post) {
   document.getElementById('posts').appendChild(siteContainer);
 }
 
-function showWatchedPosts() {
+function getDaysSinceAdded(dateAdded) {
+  dateAdded = new Date(dateAdded);
+  dateAdded.setHours(0, 0, 0, 0);
+
+  const now = new Date();
+  now.setHours(0, 0, 0, 0);
+
+  const daysSinceAdded = Math.floor((now.getTime() - dateAdded.getTime()) / 1000 / 60 / 60 / 24);
+  return daysSinceAdded;
+}
+
+function showWatchedPosts(sortBy = 'title') {
+  [...document.querySelectorAll('.site-watched-posts-container ul li')].forEach(el => el.remove());
   document.getElementById('auth').style.display = 'none';
   document.getElementById('posts').style.display = 'block';
   browser.runtime.sendMessage({ action: 'GET_SITE_DATA' }).then(siteData => {
     browser.runtime.sendMessage({ action: 'GET_WATCHED_POSTS' }).then(watchedPosts => {
+      watchedPosts.sort((a, b) => sortBy === 'title' ? a.title.localeCompare(b.title) : b[sortBy] - a[sortBy]);
       console.log(watchedPosts);
       if (!watchedPosts || !watchedPosts.length) document.getElementById('posts-header').innerText = 'No Watched Posts';
 
       watchedPosts.forEach(post => {
         if (!document.getElementById(post.sitename)) createSiteContainer(siteData, post);
         const postLi = SEPostWatcher.helpers.newElement('li', { className: 'watched-post-entry' });
-
+        postLi.setAttribute('data-title', post.title);
         if (post.unreadChanges.length) postLi.classList.add('unread');
+        // post.dateAdded was introduced in v1.2.0
+        if (post.dateAdded) postLi.setAttribute('data-date-added', post.dateAdded);
 
         // The '/q' or '/a' slug works for any type of post so don't need to check for postType
         const postTitleAnchor = SEPostWatcher.helpers.newElement('a', {
@@ -77,6 +92,16 @@ function showWatchedPosts() {
         };
 
         const unreadDot = SEPostWatcher.helpers.newElement('span', { className: 'unread-dot', innerHTML: '&nbsp;' });
+        if (post.dateAdded) {
+          const addedDaysAgo = getDaysSinceAdded(post.dateAdded);
+          const dateAddedSpan = SEPostWatcher.helpers.newElement('span', {
+            className: 'watched-post-added-date',
+            // Show 'added today' or 'added x day(s) ago'
+            innerText: addedDaysAgo === 0 ? 'added today' : `added ${addedDaysAgo} day${addedDaysAgo === 1 ? '' : 's'} ago`,
+            title: new Date(post.dateAdded).toLocaleString(),
+          });
+          titleActionsDiv.appendChild(dateAddedSpan);
+        }
         titleActionsDiv.appendChild(unreadDot);
         titleActionsDiv.appendChild(postTitleAnchor);
         titleActionsDiv.appendChild(markAsReadSpan);
@@ -102,6 +127,11 @@ function authorise() {
 }
 
 browser.runtime.sendMessage({ action: 'GET_ACCESS_TOKEN' }).then(accessToken => {
-  if (accessToken) showWatchedPosts();
-  else authorise();
+  if (accessToken) {
+    showWatchedPosts();
+    document.getElementById('sortByTitle').addEventListener('click', () => showWatchedPosts('title'));
+    document.getElementById('sortByDateAdded').addEventListener('click', () => showWatchedPosts('dateAdded'));
+  } else {
+    authorise();
+  }
 });
