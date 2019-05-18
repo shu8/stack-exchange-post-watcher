@@ -31,7 +31,7 @@ browser.runtime.sendMessage({ action: 'GET_WATCHED_POSTS' }).then(originalWatche
 
 function watchPost(postId, postType, watchOptions, alreadyWatched = false) {
   const post = document.getElementById(postType === 'question' ? 'question' : `answer-${postId}`);
-  const title = document.getElementById('question-header').children[0].innerText;
+  const title = document.querySelector('#question-header a').innerText;
   const sitename = location.hostname;
 
   post.querySelector('.watch-post').style.fontWeight = 'bold';
