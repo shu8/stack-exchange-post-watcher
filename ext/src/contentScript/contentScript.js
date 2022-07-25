@@ -9,9 +9,9 @@ browser.runtime.sendMessage({ action: 'GET_WATCHED_POSTS' }).then(originalWatche
   posts.forEach(post => {
     const postType = post.classList.contains('question') ? 'question' : 'answer';
     const postId = post.getAttribute(`data-${postType}id`);
-    const postMenu = post.querySelector('.post-menu');
+    const postMenu = post.querySelector('.js-post-menu .s-anchors');
     const watchButton = SEPostWatcher.helpers.newElement('a', {
-      href: '#', title: 'Watch this post for changes', innerText: 'watch', className: 'watch-post',
+      href: '#', title: 'Watch this post for changes', innerText: 'Watch', className: 'watch-post flex--item',
     });
     let existingWatchedPost = watchedPosts.find(p => p.postId === postId && p.sitename === location.hostname);
     if (existingWatchedPost) watchButton.style.fontWeight = 'bold';
